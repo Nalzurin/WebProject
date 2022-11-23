@@ -34,10 +34,9 @@
                         </form>
                     </td>
                     <td>
-                        <form method="post" asp-page-handler="edit">
+                        <form method="post" asp-page="Edit">
                             <input type="hidden" name="user" value="@user.Id" />
-                            <button type="submit" onclick="$(this).parent('form').find('input[name=\'role\']').val('@(AutoMigration.AdminRoleName)')"
-                                class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary">
                                 Edit
                             </button>
                         </form>
@@ -53,12 +52,5 @@
 
         </tbody>
     </table>
-    <ul class="navbar-nav flex-grow-1">
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Admin" asp-page="/Edit">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Admin" asp-page="/Lab8">Lab 8</a>
-        </li>
-    </ul>
+    <a class="btn btn-primary" asp-area="Admin" asp-page="/Add">Add User</a>
 </div>

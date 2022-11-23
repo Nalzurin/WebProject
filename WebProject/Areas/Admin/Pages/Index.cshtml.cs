@@ -47,44 +47,6 @@ namespace WebProject.Areas.Admin.Pages
             await LoadUsers();
             return Page();
         }
-        public async Task<IActionResult> OnPostAddAsync(string user, string role)
-        {
-            var userDb = await userManager.Users.FirstOrDefaultAsync(x => x.UserName == user);
-
-            if (userDb != null)
-            {
-                bool hasRole = await userManager.IsInRoleAsync(userDb, role);
-                if (hasRole)
-                {
-                    if (role != AutoMigration.AdminRoleName || (await userManager.GetUsersInRoleAsync(role)).Count > 1)
-                        await userManager.RemoveFromRoleAsync(userDb, role);
-                }
-                else
-                    await userManager.AddToRoleAsync(userDb, role);
-            }
-            await LoadUsers();
-            
-            return Page();
-        }
-
-        public async Task<IActionResult> OnPostEditAsync(string user, string role)
-        {
-            var userDb = await userManager.Users.FirstOrDefaultAsync(x => x.UserName == user);
-
-            if (userDb != null)
-            {
-                bool hasRole = await userManager.IsInRoleAsync(userDb, role);
-                if (hasRole)
-                {
-                    if (role != AutoMigration.AdminRoleName || (await userManager.GetUsersInRoleAsync(role)).Count > 1)
-                        await userManager.RemoveFromRoleAsync(userDb, role);
-                }
-                else
-                    await userManager.AddToRoleAsync(userDb, role);
-            }
-            await LoadUsers();
-            return Page();
-        }
         public async Task<IActionResult> OnPostDeleteAsync(string user)
         {
             var userDb = await userManager.Users.FirstOrDefaultAsync(x => x.Id == user);

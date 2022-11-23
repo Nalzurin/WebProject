@@ -40,6 +40,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeAreaFolder("Admin", "/", "AdminPolicy");
+    options.Conventions.AuthorizePage("/Lab8", "UserPolicy");
 });
 
 builder.Services.AddTransient<AutoMigration>();

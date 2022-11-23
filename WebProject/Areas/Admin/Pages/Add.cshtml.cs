@@ -15,14 +15,13 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using WebProject.Areas.Identity.Data;
 namespace WebProject.Areas.Admin.Pages
 {
     
 
-    public class EditModel : PageModel
+    public class AddModel : PageModel
     {
         [BindProperty]
         public InputModel Input { get; set; }
@@ -34,14 +33,24 @@ namespace WebProject.Areas.Admin.Pages
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-           
+            
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Password)]
+            [Display(Name = "Password")]
+            public string Password { get; set; }
+
+            
+            [DataType(DataType.Password)]
+            [Display(Name = "Confirm password")]
+            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            public string ConfirmPassword { get; set; }
         }
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
-        public ApplicationUser user;
-        public EditModel(UserManager<ApplicationUser> userManager,
+        public AddModel(UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager)
         {
@@ -50,20 +59,17 @@ namespace WebProject.Areas.Admin.Pages
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
         }
-        public async void OnPostAsync()
-        {
-            user = await _userManager.FindByIdAsync(Request.Form["user"]);
 
-        }
-        public async Task<IActionResult> OnPostEditAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAddAsync(string returnUrl = null)
         {
-            user = await _userManager.FindByIdAsync(Request.Form["user"]);
             returnUrl ??= Url.Content("~/Admin");
             if (ModelState.IsValid)
             {
+                var user = CreateUser();
+
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                await _userManager.UpdateAsync(user);
+                await _userManager.CreateAsync(user, Input.Password);
             }
             return Redirect(returnUrl);
         }
