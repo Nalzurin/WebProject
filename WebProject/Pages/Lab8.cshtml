@@ -4,6 +4,8 @@
     ViewData["Title"] = "Lab 8";
 }
 <p hidden>@Request.Headers["USER-AGENT"]</p>
+<button id="open">Open dialogue</button>
+<dialog id="Lab8">
 <form method="post">
     <select name="lab8">
         <option value="">Select a number</option>
@@ -11,6 +13,23 @@
         <option value="Testing">Testing</option>
         <option value="The cake is a lie">The cake is a lie</option>
     </select>
-    <input type="submit" />
+    <input type="submit" id="submit"/>
 </form>
+    <button id="close">Close dialogue</button>
+    <script type="text/JavaScript">
+        (function () {
+            var dialog = document.getElementById('Lab8');
+            dialog.show();
+            document.getElementById('submit').onclick = function () {
+                dialog.close();
+            };
+            document.getElementById('close').onclick = function () {
+                dialog.close();
+            };
+            document.getElementById('open').onclick = function () {
+                dialog.show();
+            };
+        })();
+    </script>
+</dialog>
 <h1>Your value is: @Response.Headers["REMOTE_AGENT"]</h1>

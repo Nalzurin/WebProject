@@ -1,0 +1,64 @@
+﻿@page
+@using WebProject.Code
+@model WebProject.Areas.Admin.Pages.UsersModel
+@{
+}
+<div id="userTable">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">UserName</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Roles</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.UsersList)
+            {
+                <tr>
+                    <th scope="row">@user.UserName</th>
+                    <td>@user.Email</td>
+                    <td>
+                        <form method="post" asp-page-handler="role">
+                            <input type="hidden" name="user" value="@user.UserName" />
+                            <input type="hidden" name="role" value="" />
+                            <button type="submit" onclick="$(this).parent('form').find('input[name=\'role\']').val('@(AutoMigration.UserRoleName)')"
+                                class="btn btn-@(user.Roles.Contains(AutoMigration.UserRoleName) ? "primary" : "light")">
+                                User
+                            </button>
+                            <button type="submit" onclick="$(this).parent('form').find('input[name=\'role\']').val('@(AutoMigration.AdminRoleName)')"
+                                class="btn btn-@(user.Roles.Contains(AutoMigration.AdminRoleName) ? "danger" : "light")">
+                                Admin
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" asp-page-handler="edit">
+                            <input type="hidden" name="user" value="@user.Id" />
+                            <button type="submit" onclick="$(this).parent('form').find('input[name=\'role\']').val('@(AutoMigration.AdminRoleName)')"
+                                class="btn btn-primary">
+                                Edit
+                            </button>
+                        </form>
+                        <form method="post" asp-page-handler="delete">
+                            <input type="hidden" name="user" value="@user.Id" />
+                            <button type="submit" class="btn btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Admin" asp-page="/Edit">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Admin" asp-page="/Lab8">Lab 8</a>
+        </li>
+    </ul>
+</div>
