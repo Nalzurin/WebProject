@@ -1,0 +1,16 @@
+﻿@page
+@model Project.Pages.Lab8Model
+@{
+    ViewData["Title"] = "Lab 8";
+}
+<p hidden>@Request.Headers["USER-AGENT"]</p>
+<form method="post">
+    <select name="lab8">
+        <option value="">Select a number</option>
+        <option value="Lab8">Lab8</option>
+        <option value="Testing">Testing</option>
+        <option value="The cake is a lie">The cake is a lie</option>
+    </select>
+    <input type="submit" />
+</form>
+<h1>Your value is: @Response.Headers["REMOTE_AGENT"]</h1>
