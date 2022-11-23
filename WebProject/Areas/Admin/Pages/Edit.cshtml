@@ -3,9 +3,9 @@
 @{
     ViewData["Title"] = "Edit User";
 }
-<div class="col-md-4">
-    <form id="editForm" asp-page-handler="Edit" method="post">
-        <h2>Edit user</h2>
+<div class="align-content-lg-center bg-dark">
+    <form id="editForm" asp-page-handler="Edit" method="post" class="text-dark">
+        <h2 class="text-light">Edit user</h2>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-floating">
@@ -14,6 +14,9 @@
             <label asp-for="Input.Email"></label>
             <span asp-validation-for="Input.Email" class="text-danger"></span>
         </div>
-        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Ok</button>
+        <br>
+        
     </form>
+    <a id="cancel" class="btn btn-lg btn-danger" asp-area="Admin" asp-page="/Index">Cancel</a>
 </div>

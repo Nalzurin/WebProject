@@ -4,9 +4,9 @@
 @{
 }
 <div id="userTable">
-    <table class="table">
+    <table class="table bg-dark">
         <thead>
-            <tr>
+            <tr class="table-primary">
                 <th scope="col">UserName</th>
                 <th scope="col">E-mail</th>
                 <th scope="col">Roles</th>
@@ -16,7 +16,7 @@
         <tbody>
             @foreach (var user in Model.UsersList)
             {
-                <tr>
+                <tr class="table-light">
                     <th scope="row">@user.UserName</th>
                     <td>@user.Email</td>
                     <td>

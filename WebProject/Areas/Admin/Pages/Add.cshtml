@@ -3,9 +3,9 @@
 @{
     ViewData["Title"] = "Add User";
 }
-<div class="col-md-4">
-    <form id="registerForm" asp-page-handler="Add" method="post">
-        <h2>Create a new account.</h2>
+<div class="align-content-lg-center bg-dark">
+    <form id="registerForm" asp-page-handler="Add" method="post" class="text-black">
+        <h2 class="text-light">Create a new account.</h2>
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-floating">
@@ -23,6 +23,9 @@
             <label asp-for="Input.ConfirmPassword"></label>
             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
         </div>
-        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Add User</button>
+        <br>
+        
     </form>
+    <a id="cancel" class="w-100 btn btn-lg btn-danger" asp-area="Admin" asp-page="/Index">Cancel</a>
 </div>
