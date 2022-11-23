@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebProject.Areas.Identity.Data;
+using WebProject.Areas.Lab10.Data;
 using WebProject.Code;
 using WebProject.Data;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("UserContextConnection") ?? throw new InvalidOperationException("Connection string 'UserContextConnection' not found.");
+builder.Services.AddDbContext<GameContext>();
 
 builder.Services.AddDbContext<UserContext>(options =>
     options.UseSqlServer(connectionString));
@@ -44,7 +46,6 @@ builder.Services.AddRazorPages(options =>
 });
 
 builder.Services.AddTransient<AutoMigration>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
